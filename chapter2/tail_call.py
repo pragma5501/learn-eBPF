@@ -4,7 +4,13 @@ import ctypes as ct
 program = r"""
 BPF_PROG_ARRAY(syscall, 300);
 
+RAW_TRACEPOINT_PROBE(sys_enter) 
+{
+    
+}
+
 int hello(struct bpf_raw_tracepoint_args *ctx) {
+    
     int opcode = ctx->args[1];
     syscall.call(ctx, opcode);
     bpf_trace_printk("Another syscall: %d", opcode);
